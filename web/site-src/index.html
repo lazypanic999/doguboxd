@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101414">
+  <meta name="description" content="Doguboxd: Filmleri keşfet, günlüğünü tut, listeler yap ve ortak zevk rotanı bul.">
+  <title>Doguboxd — Filmler burada buluşur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <button class="brand" data-view="discover" aria-label="Doguboxd ana sayfa"><span class="brand-mark"><i></i><i></i><i></i></span><span>dogu<span class="brand-accent">boxd</span><small>filmler burada buluşur</small></span></button>
+      <nav class="side-nav" aria-label="Ana menü">
+        <button class="nav-item active" data-view="discover"><span class="nav-icon">⌂</span> Keşfet</button>
+        <button class="nav-item" data-view="diary"><span class="nav-icon">▦</span> Günlüğüm</button>
+        <button class="nav-item" data-view="watchlist"><span class="nav-icon">◷</span> İzleme listem</button>
+        <button class="nav-item" data-view="lists"><span class="nav-icon">☷</span> Listelerim</button>
+        <button class="nav-item" data-view="match"><span class="nav-icon">✦</span> Zevk rotası <span class="new-pill">YENİ</span></button>
+        <button class="nav-item" data-view="profile"><span class="nav-icon">◉</span> Profilim</button>
+      </nav>
+      <div class="side-bottom"><div class="mini-avatar">D</div><div><b id="sidebar-name">Film yolcusu</b><small>Kişisel film alanın</small></div><button id="settings-button" aria-label="Profili düzenle">⚙</button></div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><div class="mobile-brand">dogu<span>boxd</span></div><div class="top-search"><span>⌕</span><input id="global-search" type="search" placeholder="Film, yönetmen veya tür ara..." aria-label="Film ara"><kbd>/</kbd></div><div class="top-actions"><span class="today-label">SİNEMA GÜNLÜĞÜ</span><button id="quick-add" class="add-button" aria-label="Film ekle">+</button></div></header>
+      <div id="app-view"></div>
+      <footer class="footer">Doguboxd · Film sevenler için tasarlandı <span class="tmdb-note"><a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer"><img src="https://www.themoviedb.org/assets/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" alt="TMDB" width="58"></a> Film afişleri ve ekip bilgileri TMDB kaynaklıdır. This product uses the TMDB API but is not endorsed or certified by TMDB.</span></footer>
+    </main>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobil menü"><button data-view="discover">⌂<span>Keşfet</span></button><button data-view="diary">▦<span>Günlük</span></button><button data-view="watchlist">◷<span>İzlenecek</span></button><button data-view="match">✦<span>Rota</span></button><button data-view="profile">◉<span>Profil</span></button></nav>
+  <div id="modal-root"></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<resources>
+    <style name="Theme.Doguboxd" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:statusBarColor">#101414</item>
+        <item name="android:navigationBarColor">#101414</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+</resources>
