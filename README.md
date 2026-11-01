@@ -2,6 +2,8 @@
 
 Doguboxd, film arama ve izleme günlüğü uygulamasıdır. Canlı film kataloğu, afiş ve ekip bilgileri, izleme listesi, kişisel listeler, yarım yıldızlı puanlama ve arkadaşlarla Zevk rotası sunar.
 
+**Letterboxd aktarımı:** Günlüğüm → Letterboxd’dan aktar bölümünde dışa aktarılan ZIP veya CSV dosyalarını seçin. Günlük tarihleri, tekrar izlemeler, puanlar ve izleme listesi eşleştirilir. Ham dosya cihazda okunur; film adları TMDB üzerinden eşleştirilir. Mevcut Doguboxd kayıtları korunur.
+
 **Canlı site:** https://doguboxd.i-sg-hocam-a-4378.chatgpt.site/
 
 ## Proje yapısı

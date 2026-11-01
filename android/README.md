@@ -2,6 +2,8 @@
 
 Doguboxd sitesini Android uygulamasında açan ilk sürüm. Film arama, afiş ve ekip bilgileri, izleme listesi, günlük, yarım yıldızlı puanlama ve Zevk rotası sitedeki özellikleri kullanır.
 
+Günlükteki **Letterboxd’dan aktar** düğmesi Android sistem dosya seçicisini açar. Letterboxd dışa aktarım ZIP dosyası veya içindeki günlük/puan CSV dosyaları seçilebilir.
+
 ## Kurulum ve geliştirme
 
 - Android Studio ile bu klasörü açın.

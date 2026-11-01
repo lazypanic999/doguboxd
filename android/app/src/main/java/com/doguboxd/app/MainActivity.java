@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.content.ClipData;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -15,6 +16,7 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.ValueCallback;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -27,6 +29,8 @@ public class MainActivity extends Activity {
     private WebView webView;
     private LinearLayout errorView;
     private ProgressBar progress;
+    private static final int FILE_CHOOSER_REQUEST = 4107;
+    private ValueCallback<Uri[]> fileCallback;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +44,7 @@ public class MainActivity extends Activity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setAllowFileAccess(false);
-        webView.getSettings().setAllowContentAccess(false);
+        webView.getSettings().setAllowContentAccess(true);
         webView.getSettings().setSupportMultipleWindows(false);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
         webView.getSettings().setMixedContentMode(android.webkit.WebSettings.MIXED_CONTENT_NEVER_ALLOW);
@@ -90,6 +94,17 @@ public class MainActivity extends Activity {
 
         webView.setWebChromeClient(new WebChromeClient(){
             @Override public void onProgressChanged(WebView view,int value){progress.setProgress(value);progress.setVisibility(value<100?View.VISIBLE:View.GONE);}
+            @Override public boolean onShowFileChooser(WebView view,ValueCallback<Uri[]> callback,FileChooserParams params){
+                if(fileCallback!=null)fileCallback.onReceiveValue(null);
+                fileCallback=callback;
+                Intent intent=new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+                try{startActivityForResult(Intent.createChooser(intent,"Letterboxd dosyasını seç"),FILE_CHOOSER_REQUEST);}
+                catch(Exception e){fileCallback=null;callback.onReceiveValue(null);return false;}
+                return true;
+            }
         });
         webView.setWebViewClient(new WebViewClient(){
             @Override public boolean shouldOverrideUrlLoading(WebView view,WebResourceRequest request){
@@ -115,6 +130,18 @@ public class MainActivity extends Activity {
             if("true".equals(result))return;
             if(webView.canGoBack())webView.goBack();else MainActivity.super.onBackPressed();
         });
+    }
+    @Override protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode!=FILE_CHOOSER_REQUEST||fileCallback==null)return;
+        Uri[] chosen=null;
+        if(resultCode==RESULT_OK&&data!=null){
+            ClipData clip=data.getClipData();
+            if(clip!=null){chosen=new Uri[clip.getItemCount()];for(int i=0;i<clip.getItemCount();i++)chosen[i]=clip.getItemAt(i).getUri();}
+            else if(data.getData()!=null)chosen=new Uri[]{data.getData()};
+        }
+        fileCallback.onReceiveValue(chosen);
+        fileCallback=null;
     }
     @Override protected void onSaveInstanceState(Bundle out){webView.saveState(out);super.onSaveInstanceState(out);}
     @Override protected void onDestroy(){if(webView!=null){((ViewGroup)webView.getParent()).removeView(webView);webView.destroy();}super.onDestroy();}

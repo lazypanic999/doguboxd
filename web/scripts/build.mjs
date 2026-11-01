@@ -2,9 +2,9 @@ import {readFile,writeFile,mkdir,rm} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 const root=new URL('../',import.meta.url);
 const read=p=>readFile(new URL(p,root),'utf8');
-const files=['index.html','styles.css','app.js','tmdb-seed.json'];
+const files=['index.html','styles.css','importer.js','app.js','tmdb-seed.json'];
 const assets=Object.fromEntries(await Promise.all(files.map(async f=>['/'+f,await read('site-src/'+f)])));
-for(const f of ['styles.css','app.js']){
+for(const f of ['styles.css','importer.js','app.js']){
   const hash=createHash('sha256').update(assets['/'+f]).digest('hex').slice(0,10);
   assets['/index.html']=assets['/index.html'].replace(`./${f}`,`./${f}?v=${hash}`);
 }

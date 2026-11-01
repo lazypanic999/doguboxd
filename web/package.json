@@ -1,1 +1,1 @@
-{"name":"doguboxd","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs","check":"node --check site-src/app.js && node --check worker/index.js"}}
+{"name":"doguboxd","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs","check":"node --check site-src/importer.js && node --check site-src/app.js && node --check worker/index.js"}}
